@@ -4,12 +4,12 @@ setlocal EnableDelayedExpansion
 
 cd /d "D:\sw"
 
-:: Если хочешь указать конкретную папку — раскомментируй и измени путь
+:: Р•СЃР»Рё С…РѕС‡РµС€СЊ СѓРєР°Р·Р°С‚СЊ РєРѕРЅРєСЂРµС‚РЅСѓСЋ РїР°РїРєСѓ вЂ” СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂСѓР№ Рё РёР·РјРµРЅРё РїСѓС‚СЊ
 :: set "targetFolder=C:\Downloads\Cracked"
 :: cd /d "%targetFolder%"
 
-echo Блокировка ВСЕХ .exe в текущей папке и подпапках...
-echo Запуск от имени администратора обязателен!
+echo Р‘Р»РѕРєРёСЂРѕРІРєР° Р’РЎР•РҐ .exe РІ С‚РµРєСѓС‰РµР№ РїР°РїРєРµ Рё РїРѕРґРїР°РїРєР°С…...
+echo Р—Р°РїСѓСЃРє РѕС‚ РёРјРµРЅРё Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РѕР±СЏР·Р°С‚РµР»РµРЅ!
 echo.
 
 set count=0
@@ -20,13 +20,13 @@ for /r %%F in (*.exe) do (
     set "ruleIn=Block In  - %%~nxF (%%~dpF)"
     set "prog=%%~fF"
     
-    :: Проверяем, существует ли уже правило (чтобы не дублировать)
+    :: РџСЂРѕРІРµСЂСЏРµРј, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё СѓР¶Рµ РїСЂР°РІРёР»Рѕ (С‡С‚РѕР±С‹ РЅРµ РґСѓР±Р»РёСЂРѕРІР°С‚СЊ)
     netsh advfirewall firewall show rule name="!ruleOut!" >nul 2>&1
     if !errorlevel! neq 0 (
         netsh advfirewall firewall add rule name="!ruleOut!" dir=out action=block program="!prog!" enable=yes profile=any >nul
         echo [+] Out: %%~nxF
     ) else (
-        echo [~] Out уже есть: %%~nxF
+        echo [~] Out СѓР¶Рµ РµСЃС‚СЊ: %%~nxF
     )
     
     netsh advfirewall firewall show rule name="!ruleIn!" >nul 2>&1
@@ -34,11 +34,11 @@ for /r %%F in (*.exe) do (
         netsh advfirewall firewall add rule name="!ruleIn!" dir=in action=block program="!prog!" enable=yes profile=any >nul
         echo [+] In:  %%~nxF
     ) else (
-        echo [~] In уже есть: %%~nxF
+        echo [~] In СѓР¶Рµ РµСЃС‚СЊ: %%~nxF
     )
 )
 
 echo.
-echo Обработано файлов: %count%
-echo Правила созданы (если не было ошибок).
+echo РћР±СЂР°Р±РѕС‚Р°РЅРѕ С„Р°Р№Р»РѕРІ: %count%
+echo РџСЂР°РІРёР»Р° СЃРѕР·РґР°РЅС‹ (РµСЃР»Рё РЅРµ Р±С‹Р»Рѕ РѕС€РёР±РѕРє).
 pause
